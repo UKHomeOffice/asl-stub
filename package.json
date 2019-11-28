@@ -13,13 +13,13 @@
     "url": "git+https://github.com/UKHomeOffice/asl-stub.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/UKHomeOffice/asl-stub/issues"
   },
   "homepage": "https://github.com/UKHomeOffice/asl-stub#readme",
   "dependencies": {
-    "@asl/service": "^7.15.2",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0"
   },
