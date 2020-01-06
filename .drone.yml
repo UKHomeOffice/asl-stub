@@ -8,6 +8,7 @@ pipeline:
     when:
       event:
         - push
+        - tag
         - pull_request
 
   audit:
@@ -17,6 +18,7 @@ pipeline:
     when:
       event:
         - push
+        - tag
         - pull_request
 
   build:
@@ -29,7 +31,6 @@ pipeline:
       branch: master
       event:
         - push
-        - tag
         - pull_request
 
   image_to_quay:
@@ -45,6 +46,15 @@ pipeline:
     when:
       branch: master
       event: push
+
+  build:
+    image: docker:17.09.1
+    environment:
+      - DOCKER_HOST=tcp://172.17.0.1:2375
+    commands:
+      - docker build -t asl-stub .
+    when:
+      event: tag
 
   image_to_quay:
     image: docker:17.09.1
