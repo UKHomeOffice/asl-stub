@@ -59,3 +59,9 @@ steps:
     when:
       event: push
       branch: master
+
+services:
+- name: docker
+  image: docker:dind
+  environment:
+    DOCKER_TLS_CERTDIR: ""
