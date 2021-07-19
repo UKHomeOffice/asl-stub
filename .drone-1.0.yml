@@ -4,7 +4,7 @@ name: default
 type: kubernetes
 steps:
   - name: install
-    image: node:12
+    image: node:14
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -13,7 +13,7 @@ steps:
     commands:
       - npm ci
   - name: test
-    image: node:12
+    image: node:14
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -22,7 +22,7 @@ steps:
     commands:
       - npm test
   - name: audit
-    image: node:12
+    image: node:14
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -34,6 +34,7 @@ steps:
     image: docker:dind
     environment:
       DOCKER_HOST: tcp://docker:2375
+      DOCKER_BUILDKIT: 1
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
       NPM_AUTH_TOKEN:
@@ -41,7 +42,7 @@ steps:
     commands:
       # wait for docker service to be up before running docker build
       - n=0; while [ "$n" -lt 60 ] && [[ ! $(docker stats --no-stream) ]]; do n=$(( n + 1 )); sleep 1; done
-      - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-stub .
+      - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-stub .
   - name: docker push
     image: docker:dind
     environment:
