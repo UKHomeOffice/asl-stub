@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "eslint .",
+    "test:audit": "audit-ci --high --skip-dev --config .auditrc.json",
     "dev": "nodemon -r dotenv/config index.js"
   },
   "repository": {
@@ -27,6 +28,7 @@
     "nocache": "^2.1.0"
   },
   "devDependencies": {
+    "audit-ci": "^6.5.0",
     "dotenv": "^8.2.0",
     "eslint": "^5.16.0",
     "eslint-config-lennym": "^2.0.1",
