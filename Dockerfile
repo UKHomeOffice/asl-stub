@@ -8,10 +8,10 @@ COPY .npmrc /app/.npmrc
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
-RUN --mount=type=secret,id=token \
-    --mount=type=secret,id=username \
-    NPM_AUTH_USERNAME=`cat /run/secrets/username` \
-    NPM_AUTH_TOKEN=`cat /run/secrets/token` \
+RUN --mount=type=secret,id=token\
+    --mount=type=secret,id=github_token \
+    GITHUB_AUTH_TOKEN=`cat /run/secrets/github_token` \
+    ART_AUTH_TOKEN=`cat /run/secrets/token` \
     npm ci --production --no-optional --ignore-scripts
 
 COPY . /app
